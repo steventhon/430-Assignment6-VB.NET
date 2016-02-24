@@ -10,7 +10,7 @@ Public Class OWQQ3
     
   End Class
   
-  Private Class numC inherits ExprC
+  Private Class numC : inherits ExprC
     Public n as Integer
     
     Public Sub New(byval newN as Integer)
@@ -19,7 +19,7 @@ Public Class OWQQ3
     End Sub
   End Class
   
-  Private Class boolC inherits ExprC
+  Private Class boolC : inherits ExprC
     Public b as Boolean
     
     Public Sub New(byval newB as Boolean)
@@ -28,7 +28,7 @@ Public Class OWQQ3
     End Sub
   End Class
   
-  Private Class binopC inherits ExprC
+  Private Class binopC : inherits ExprC
     Public s as Char
     Public lhs as ExprC
     Public rhs as ExprC
@@ -40,8 +40,8 @@ Public Class OWQQ3
       rhs = newR
     End Sub
   End Class
-  
-  Public Sub Main()
+
+  Public Shared Sub Main()
     Console.WriteLine("OWQQ3")
     Console.ReadKey()
   End Sub
