@@ -143,6 +143,18 @@ Public Class OWQQ3
 
         End Function
     End Class
+    
+    Private Class TopEval
+    
+        Public Sub New()
+            MyBase.New()
+        End Sub
+        
+        Public Function serialize(ByVal exp As ExprC) As String
+            Return exp.interp().getVal().toString()
+        End Function  
+    
+    End Class
 
     Public Shared Sub Main()
         Dim testExpr As ExprC
@@ -151,6 +163,8 @@ Public Class OWQQ3
         Dim testExpr4 As ExprC
         Dim testExpr5 As ExprC
         Dim testExpr6 As ExprC
+        Dim topEval = New TopEval
+        
         testExpr = New binopC("+", New numC(3), New numC(4))
         testExpr2 = New binopC("*", New numC(4),
                                    New binopC("-", New numC(3),
@@ -166,17 +180,14 @@ Public Class OWQQ3
                             New boolC(False))
         testExpr6 = New ifC(New boolC(False), New boolC(True), New numC(-1))
 
-        Console.WriteLine("(+ 3 4): " & testExpr.interp().getVal())
-        Console.WriteLine("(* 4 (- 3 (* 2 7))): " _
-                              & testExpr2.interp().getVal())
-        Console.WriteLine("(eq? (* 10 20) (- 200 0)): " _
-                              & testExpr3.interp().getVal())
-        Console.WriteLine("(<= (+ 0 0) (-50 300): " _
-                              & testExpr4.interp().getVal())
-        Console.WriteLine("(if (<= 9 100) (* 200 2) false): " _
-                          & testExpr5.interp().getVal())
-        Console.WriteLine("(if false true -1): " & testExpr6.interp().getVal())
-
+        
+        Console.WriteLine("(+ 3 4): " & topEval.serialize(testExpr))
+        Console.WriteLine("(* 4 (- 3 (* 2 7))): " & topEval.serialize(testExpr2))
+        Console.WriteLine("(eq? (* 10 20) (- 200 0)): " & topEval.serialize(testExpr3))
+        Console.WriteLine("(<= (+ 0 0) (-50 300): " & topEval.serialize(testExpr4))
+        Console.WriteLine("(if (<= 9 100) (* 200 2) false): " & topEval.serialize(testExpr5))
+        Console.WriteLine("(if false true -1): " & topEval.serialize(testExpr6))
+        
         Console.ReadKey()
     End Sub
 End Class
