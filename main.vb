@@ -155,6 +155,32 @@ Public Class OWQQ3
         End Function  
     
     End Class
+    
+    Private Class Parse
+        
+        Public Sub New()
+            MyBase.New()
+        End Sub
+        
+        Public Function parse(ByVal exp As String) As ExprC
+            
+            Dim tokens As String() = exp.Split(new Char() {" "c})
+            Dim tempExpr as ExprC
+            
+            If tokens(0).chars(1).Equals("+"c)
+                
+                Dim left = Convert.toInt32(tokens(1))
+                Dim right = Convert.toInt32(tokens(2))
+                
+                tempExpr = New binopC("+", New numC(left), New numC(right))
+                
+                Return tempExpr
+                
+            End If
+        
+        End Function
+        
+    End Class
 
     Public Shared Sub Main()
         Dim testExpr As ExprC
@@ -164,6 +190,10 @@ Public Class OWQQ3
         Dim testExpr5 As ExprC
         Dim testExpr6 As ExprC
         Dim topEval = New TopEval
+        Dim parse = New Parse
+        Dim testString = "(+ 3 3 )"
+        
+        Console.WriteLine(topEval.serialize(parse.parse(testString)))
         
         testExpr = New binopC("+", New numC(3), New numC(4))
         testExpr2 = New binopC("*", New numC(4),
