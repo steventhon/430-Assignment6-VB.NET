@@ -166,13 +166,14 @@ Public Class OWQQ3
             
             Dim tokens As String() = exp.Split(new Char() {" "c})
             Dim tempExpr as ExprC
+            Dim binop As String = tokens(0).chars(1)
             
-            If tokens(0).chars(1).Equals("+"c)
+            If binop.Equals("+"c)
                 
                 Dim left = Convert.toInt32(tokens(1))
                 Dim right = Convert.toInt32(tokens(2))
                 
-                tempExpr = New binopC("+", New numC(left), New numC(right))
+                tempExpr = New binopC(binop, New numC(left), New numC(right))
                 
                 Return tempExpr
                 
