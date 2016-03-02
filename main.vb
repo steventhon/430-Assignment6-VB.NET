@@ -197,7 +197,11 @@ Public Class OWQQ3
         Dim parse = New Parse
         Dim testString = "(+ 3 3)"
         
+        'Parse and Interp and Serialize
         Console.WriteLine(testString & ": " & topEval.serialize(parse.parse(testString)))
+        Console.WriteLine("(* 3 3): " & topEval.serialize(parse.parse("(* 3 3)")))
+        Console.WriteLine("(eq? 1 2): " & topEval.serialize(parse.parse("(eq? 1 2)")))
+        Console.WriteLine("(<= 1 2): " & topEval.serialize(parse.parse("(<= 1 2)")))
         
         testExpr = New binopC("+", New numC(3), New numC(4))
         testExpr2 = New binopC("*", New numC(4),
