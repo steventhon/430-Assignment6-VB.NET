@@ -190,11 +190,14 @@ Public Class OWQQ3
         Dim testExpr4 As ExprC
         Dim testExpr5 As ExprC
         Dim testExpr6 As ExprC
+        Dim testExpr7 As ExprC
+        Dim testExpr8 As ExprC
+        Dim testExpr9 As ExprC
         Dim topEval = New TopEval
         Dim parse = New Parse
         Dim testString = "(+ 3 3 )"
         
-        Console.WriteLine(topEval.serialize(parse.parse(testString)))
+        Console.WriteLine(testString & ": " & topEval.serialize(parse.parse(testString)))
         
         testExpr = New binopC("+", New numC(3), New numC(4))
         testExpr2 = New binopC("*", New numC(4),
@@ -219,7 +222,24 @@ Public Class OWQQ3
         Console.WriteLine("(if (<= 9 100) (* 200 2) false): " & topEval.serialize(testExpr5))
         Console.WriteLine("(if false true -1): " & topEval.serialize(testExpr6))
         
+        Try
+            Dim result As String = topEval.serialize(testExpr7)
+        Catch ex As Exception
+            Console.WriteLine("(+ -1 false): " & ex.Message)
+        End Try
+
+        Try
+            Dim result As String = topEval.serialize(testExpr8)
+        Catch ex As Exception
+            Console.WriteLine("(% 3 4): " & ex.Message)
+        End Try
+
+        Try
+            Dim result As String = topEval.serialize(testExpr9)
+        Catch ex As Exception
+            Console.WriteLine("(if 1 2 3): " & ex.Message)
+        End Try
+        
         Console.ReadKey()
     End Sub
 End Class
-
