@@ -164,10 +164,13 @@ Public Class OWQQ3
         
         Public Function parse(ByVal sexp As String) As ExprC
             Dim binops As String() = {"+", "-", "*", "/", "eq?", "<="}
-            Dim tokens As String() = sexp.Substring(1, sexp.Length - 2).Split(new Char() {" "c})
-			Dim tempExpr as ExprC = New numC(0)
+            Dim subSexp As String = sexp.Substring(1, sexp.Length - 2)
+            Dim tokens As String() = subSexp.Split(new Char() {" "c})
+	    Dim tempExpr as ExprC = New numC(0)
             Dim binop As String = tokens(0)
             
+            If IsNumeric(subSexp) Then
+            	tempExpr = New numC(Convert.toInt32(subSexp))
             If Array.IndexOf(binops, binop) > -1 Then
                 
                 Dim left = Convert.toInt32(tokens(1))
@@ -199,6 +202,7 @@ Public Class OWQQ3
         
         'Parse and Interp and Serialize
         Console.WriteLine(testString & ": " & topEval.serialize(parse.parse(testString)))
+        Console.WriteLine("(5): " & topEval.serialize(parse.parse("(5)")))
         Console.WriteLine("(* 3 3): " & topEval.serialize(parse.parse("(* 3 3)")))
         Console.WriteLine("(eq? 1 2): " & topEval.serialize(parse.parse("(eq? 1 2)")))
         Console.WriteLine("(<= 1 2): " & topEval.serialize(parse.parse("(<= 1 2)")))
