@@ -158,17 +158,42 @@ Public Class OWQQ3
     
     Private Class Parse
         
+        
+        
         Public Sub New()
             MyBase.New()
         End Sub
         
-        Public Function parse(ByVal exp As String) As ExprC
+        'Public Function getTokens(ByVal sexp As String) As ArrayList
+        	'Dim subSexp As String = sexp.Substring(1, exp.Length - 2)
+        	'Dim tokens As New ArrayList()
+        	'Dim segment As String = ""
+        	'Dim outParen As Integer = 0
+        	'For Each c As Char in subSexp
+        	'	If c = "(" And outParen = 0 Then
+        	'		outParen++
+        	'	ElseIf c = "(" Then
+        	'		segment += c
+        	'		outParen++
+        	'	ElseIf c = ")" Then
+        	'		outParen--
+        	'	ElseIf c = " " And outParen = 0 Then
+        	'		tokens.add(segment)
+        	'		segment = ""
+        	'	Else
+        	'		segment += c
+        	'	EndIf
+        	'Next
+        	'Return tokens
+        	
+        Public Function parse(ByVal sexp As String) As ExprC
+            Dim binops As String() = {"+", "-", "*", "/", "eq?", "<="}
+            Dim tokens As String() = sexp.Substring(1, sexp.Length - 2).Split(new Char() {" "c})
+            'getTokens(sexp)
+			Dim tempExpr as ExprC = New numC(0)
+            Dim binop As String = tokens(0)
             
-            Dim tokens As String() = exp.Split(new Char() {" "c})
-            Dim tempExpr as ExprC
-            Dim binop As String = tokens(0).chars(1)
-            
-            If binop.Equals("+"c)
+            If Array.IndexOf(binops, binop) > -1 Then
                 
                 Dim left = Convert.toInt32(tokens(1))
                 Dim right = Convert.toInt32(tokens(2))
@@ -178,7 +203,7 @@ Public Class OWQQ3
                 Return tempExpr
                 
             End If
-        
+			Return tempExpr
         End Function
         
     End Class
@@ -192,9 +217,12 @@ Public Class OWQQ3
         Dim testExpr6 As ExprC
         Dim topEval = New TopEval
         Dim parse = New Parse
-        Dim testString = "(+ 3 3 )"
-        
+		Dim testString As String = "(+ 3 3)"
+		
         Console.WriteLine(topEval.serialize(parse.parse(testString)))
+        Console.WriteLine("(* 3 3): " & topEval.serialize(parse.parse("(* 3 3)")))
+        Console.WriteLine("(eq? 1 2): " & topEval.serialize(parse.parse("(eq? 1 2)")))
+        Console.WriteLine("(<= 1 2): " & topEval.serialize(parse.parse("(<= 1 2)")))
         
         testExpr = New binopC("+", New numC(3), New numC(4))
         testExpr2 = New binopC("*", New numC(4),
