@@ -203,7 +203,7 @@ Public Class OWQQ3
                 Return tempExpr
                 
             End If
-			Return tempExpr
+	    Return tempExpr
         End Function
         
     End Class
@@ -217,7 +217,7 @@ Public Class OWQQ3
         Dim testExpr6 As ExprC
         Dim topEval = New TopEval
         Dim parse = New Parse
-		Dim testString As String = "(+ 3 3)"
+	Dim testString As String = "(+ 3 3)"
 		
         Console.WriteLine(topEval.serialize(parse.parse(testString)))
         Console.WriteLine("(* 3 3): " & topEval.serialize(parse.parse("(* 3 3)")))
